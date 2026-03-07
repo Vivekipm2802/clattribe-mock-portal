@@ -180,7 +180,7 @@ export default function Dashboard({ userData }) {
   }, []);
 
   const t1 = `Hi ${userData?.user_metadata?.full_name || "Unknown User"},`;
-  const t2 = "Welcome to IPM Careers Study Panel";
+  const t2 = "Welcome to CLAT Tribe Study Panel";
 
   if (loading) {
     return (

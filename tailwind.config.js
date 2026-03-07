@@ -19,8 +19,9 @@ module.exports = {
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],
       },
+      // i didn't change name jus change the color value..
       backgroundImage: theme => ({
-        'gradient-purple': 'linear-gradient(97deg, rgba(103,29,110,1) 0%, rgba(144,44,152,1) 100%)',
+        'gradient-purple': 'linear-gradient(97deg, rgba(6,8,24,1) 0%, rgba(0,102,204,1) 100%)',
       }),
     },
    
@@ -31,7 +32,7 @@ module.exports = {
       light:{
        colors:{
         primary:{
-          DEFAULT:"#833589",
+          DEFAULT:"#006FEE",
           50: '#f5f0f5',
           100: '#e6d9e6',
           200: '#d6c1d6',

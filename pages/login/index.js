@@ -570,7 +570,7 @@ function Login() {
             }
           >
             <div className=" w-full h-full rounded-3xl relative items-center flex fle-col justify-center">
-              <img src="/framed.png" className="w-full h-auto object-contain" />
+              <img src="/framed.jpeg" className="w-full h-auto object-contain" />
             </div>
           </div>
         </div>

@@ -133,7 +133,7 @@ function DefaultLayout(props) {
         <div
           className={`lg:block hidden w-full absolute sf text-gray-500 text-center p-2 ${styles.bottom}`}
         >
-          © 2024 IPM Careers. All rights reserved
+          © 2024 CLAT Tribe. All rights reserved
         </div>
       </div>
       <div className={`${styles.right} bg-gray-200 p-2`}>{props.children}</div>

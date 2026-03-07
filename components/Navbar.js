@@ -165,7 +165,7 @@ const profile=[
              
 
 
-<div className={`lg:hidden block bottom-1 text-xs w-full  font-sans text-gray-500 text-center p-2 ${styles.bottom}`}>© 2024 IPM Careers. All rights reserved</div>
+<div className={`lg:hidden block bottom-1 text-xs w-full  font-sans text-gray-500 text-center p-2 ${styles.bottom}`}>© 2024 CLAT Tribe. All rights reserved</div>
         
 </div>
 <div className='flex flex-1 h-full bg-transparent cursor-pointer' onClick={()=>{setIsActive(false)}}></div>

@@ -9,8 +9,8 @@
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
   --font-main: Poppins;
-  --brand-col1: #833589;
-  --brand-col2: #e79800;
+  --brand-col1: #006FEE;
+  --brand-col2: #F59E0B;
   --brand-accent: #234e6b;
   --brand-grey: #666666;
   --brand-col-trans: #0276ff33;
@@ -32,12 +32,8 @@
   position: relative;
 }
 .gradtext {
-  background: rgb(106, 30, 112);
-  background: linear-gradient(
-    94deg,
-    rgba(106, 30, 112, 1) 0%,
-    rgba(166, 54, 175, 1) 100%
-  );
+  background: rgb(8, 15, 45);
+  background: linear-gradient(94deg, rgba(6,8,24,1) 0%, rgba(0,94,255,1) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
