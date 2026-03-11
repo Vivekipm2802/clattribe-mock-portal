@@ -1773,7 +1773,9 @@ function MockTestEditor({ userData, role }) {
                           className="p-1"
                           color="danger"
                           onPress={() => {
-                            updateMarking(i.pos - 1 ?? -1, "pos", i.id);
+                            const newValue =
+                              Math.round(((i.pos || 0) - 0.1) * 100) / 100;
+                            updateMarking(newValue, "pos", i.id);
                           }}
                           isIconOnly
                           size="sm"
@@ -1796,14 +1798,29 @@ function MockTestEditor({ userData, role }) {
                         </Button>
                         <input
                           type="number"
-                          className="bg-gray-200 rounded-md text-black w-8 text-center flex flex-col"
-                          value={i.pos ?? 0}
-                        ></input>
+                          step="0.01"
+                          className="bg-gray-200 rounded-md text-black w-12 text-center flex flex-col"
+                          value={
+                            typeof i.pos === "number"
+                              ? i.pos.toFixed(2)
+                              : "0.00"
+                          }
+                          onChange={(e) => {
+                            const value = e.target.value
+                              ? parseFloat(e.target.value)
+                              : 0;
+                            if (!isNaN(value)) {
+                              updateMarking(value, "pos", i.id);
+                            }
+                          }}
+                        />
                         <Button
                           className="p-1"
                           color="danger"
                           onPress={() => {
-                            updateMarking(i.pos + 1 ?? 1, "pos", i.id);
+                            const newValue =
+                              Math.round(((i.pos || 0) + 0.1) * 100) / 100;
+                            updateMarking(newValue, "pos", i.id);
                           }}
                           isIconOnly
                           size="sm"
@@ -1832,7 +1849,9 @@ function MockTestEditor({ userData, role }) {
                           className="p-1"
                           color="danger"
                           onPress={() => {
-                            updateMarking(i.neg - 1 ?? -1, "neg", i.id);
+                            const newValue =
+                              Math.round(((i.neg || 0) - 0.1) * 100) / 100;
+                            updateMarking(newValue, "neg", i.id);
                           }}
                           isIconOnly
                           size="sm"
@@ -1855,14 +1874,29 @@ function MockTestEditor({ userData, role }) {
                         </Button>
                         <input
                           type="number"
-                          className="bg-gray-200 rounded-md text-black w-8 text-center flex flex-col"
-                          value={i.neg ?? 0}
-                        ></input>
+                          step="0.01"
+                          className="bg-gray-200 rounded-md text-black w-12 text-center flex flex-col"
+                          value={
+                            typeof i.neg === "number"
+                              ? i.neg.toFixed(2)
+                              : "0.00"
+                          }
+                          onChange={(e) => {
+                            const value = e.target.value
+                              ? parseFloat(e.target.value)
+                              : 0;
+                            if (!isNaN(value)) {
+                              updateMarking(value, "neg", i.id);
+                            }
+                          }}
+                        />
                         <Button
                           className="p-1"
                           color="danger"
                           onPress={() => {
-                            updateMarking(i.neg + 1 ?? 1, "neg", i.id);
+                            const newValue =
+                              Math.round(((i.neg || 0) + 0.1) * 100) / 100;
+                            updateMarking(newValue, "neg", i.id);
                           }}
                           isIconOnly
                           size="sm"
@@ -1905,7 +1939,7 @@ function MockTestEditor({ userData, role }) {
                             ));
                         }}
                       >
-                        Manage Modules
+                        Manage Modulesss
                       </Button>
                       <Button
                         className="ml-2 text-white"
