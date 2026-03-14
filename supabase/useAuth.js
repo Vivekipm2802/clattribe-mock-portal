@@ -1,19 +1,41 @@
-import { supabase } from '@/utils/supabaseClient';
-import { useEffect, useState } from 'react';
-
+import { supabase } from "@/utils/supabaseClient";
+import { useEffect, useState } from "react";
 
 export function useAuth() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const session = supabase.auth.getSession();
+    // Get initial session
+    async function getInitialSession() {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
 
-    if (session) {
-      setUser(session.user);
-    } else {
-      setUser(null);
+        setUser(session?.user ?? null);
+      } catch (error) {
+        console.error("Error getting session:", error);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
     }
+
+    getInitialSession();
+
+    // Listen for auth state changes (login, logout, token refresh)
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
-  return user;
+  return { user, loading };
 }

@@ -272,14 +272,7 @@ selectedKeys={[teacherData?.subjects?.toString()]}
         <Button color="primary" onClick={()=>{config == undefined || config.length === 0 ? addConfig(teacherData) : updateConfig(teacherData)}}>{config == undefined || config.length === 0 ? "SAVE" : "UPDATE"}</Button>
 
       </div>
-      {pin == undefined || pin?.length == 0 ? 
-      <div className="max-w-[500px] sf p-4 rounded-lg shadow-md bg-white my-2 text-left">
-      
-      <h1 className="font-bold text-left">SET PIN</h1>
-{sentPIN ? <div className="bg-green-100 rounded-md w-full text-center text-sm"><p>A Link has been sent to your email</p></div>:
-      <Button color="primary" onPress={()=>{sendPIN(userData?.email)}}>Send Link on Email to Set PIN</Button>}
-      
-      </div>:''}
+      {/* PIN setup removed — teachers now use Google OAuth */}
       </>
 }
 

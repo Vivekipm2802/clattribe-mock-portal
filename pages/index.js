@@ -487,6 +487,17 @@ export default function Home(props) {
 
     if (user && user.data.user != undefined) {
       setLoggedIn(true);
+      // Set type based on user_metadata role (unless overridden by props)
+      if (!props?.type) {
+        const role = user.data.user.user_metadata?.role;
+        if (role === "admin") {
+          setType("admin");
+        } else if (role === "teacher") {
+          setType("teacher");
+        } else {
+          setType("user");
+        }
+      }
     } else {
       router.push("/login");
     }
