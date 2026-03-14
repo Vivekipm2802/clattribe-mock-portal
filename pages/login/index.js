@@ -5,6 +5,7 @@ import styles from "./Login.module.css";
 import { Button, Spacer, Spinner } from "@nextui-org/react";
 import { toast } from "react-hot-toast";
 import { useNMNContext } from "@/components/NMNContext";
+import Image from "next/image";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -128,9 +129,15 @@ function Login() {
             }
           >
             <div className="w-full h-full rounded-3xl relative items-center flex flex-col justify-center">
-              <img
+              <Image
                 src="/framed.jpeg"
+                alt="CLAT Tribe"
+                width={500}
+                height={600}
                 className="w-full h-auto object-fit"
+                priority={false}
+                loading="lazy"
+                quality={60}
               />
             </div>
           </div>
