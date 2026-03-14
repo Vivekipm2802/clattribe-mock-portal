@@ -86,15 +86,18 @@ export const NMNContextProvider = ({ children }) => {
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
         if (session?.user) {
-          // Ensure new users get default role
-          if (!session.user.user_metadata?.role) {
+          // Always fetch fresh user data from DB (session JWT may not have custom role)
+          const { data: freshData } = await supabase.auth.getUser();
+          const freshUser = freshData?.user;
+          if (freshUser && !freshUser.user_metadata?.role) {
+            // Only set free_user for genuinely new users with no role in DB
             await supabase.auth.updateUser({
               data: { role: "free_user" },
             });
             const { data: updated } = await supabase.auth.getUser();
-            setUserDetails(updated?.user ?? session.user);
+            setUserDetails(updated?.user ?? freshUser);
           } else {
-            setUserDetails(session.user);
+            setUserDetails(freshUser ?? session.user);
           }
         }
       } else if (event === "SIGNED_OUT") {
