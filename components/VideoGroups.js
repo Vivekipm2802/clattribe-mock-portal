@@ -154,7 +154,7 @@ if(loading){
 </>:''}
             {groups && groups.map((i,d)=>{
                 return <div /* onClick={()=>{onSelect(i.id)}} */ className="flex mr-4  mb-4 border-1 relative shadow-md rounded-md overflow-hidden flex-col !flex-grow-0 flex-[100%] sm:flex-[50%] lg:flex-[300px]">
-                    <img className="w-full aspect-video object-cover" src={i.image}/>
+                    <img className="w-full aspect-video object-cover" src={i.image?.replace('http://','https://')}/>
                     {role == "admin" ? 
                     <Dropdown size="sm" placement="bottom-start">
                         <DropdownTrigger>

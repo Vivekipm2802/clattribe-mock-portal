@@ -178,7 +178,7 @@ const Selector = ({ type, onSelect, role, title }) => {
               >
                 <img
                   className="w-full aspect-video object-cover"
-                  src={i.image}
+                  src={i.image?.replace('http://','https://')}
                 />
                 {role == "admin" ? (
                   <Dropdown size="sm" placement="bottom-start">
