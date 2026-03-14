@@ -42,8 +42,8 @@ return
           }
     }).then(resa=>{
         setLoading(false)
-        setImage(resa.data.url)
-      props.onUploadComplete(resa.data.url)
+        setImage(resa.data.secure_url)
+      props.onUploadComplete(resa.data.secure_url)
     }).catch(res=>{
         setLoading(false)
     })
