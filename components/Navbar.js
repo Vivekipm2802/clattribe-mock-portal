@@ -9,6 +9,7 @@ import { useNMNContext } from './NMNContext';
 import { toast } from 'react-hot-toast';
 import { Lock } from 'lucide-react';
 const Navbar = ({  type , changePage, accordian , currentSlug }) => {
+  // type is derived from user_metadata.role in the parent page
   const [showAdminItems, setShowAdminItems] = useState(type === 'admin' || type === "teacher");
 const [active,setActive] = useState('dashboard');
 const [isActive,setIsActive] = useState(false)

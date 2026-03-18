@@ -1,43 +1,51 @@
 import { supabase } from "@/utils/supabaseClient";
-import axios from "axios";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Spinner } from "@nextui-org/react";
+
+// Bootstrap admin emails (fallback for first-time admin setup)
+const bootstrapAdmins = [
+  "rishabhsingh0363@gmail.com",
+  "ipmcareeronline@gmail.com",
+];
 
 function IsAdminCheck(props) {
-  async function checkUser() {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    isAdmin(user.email);
-
-    if (user != undefined) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  async function isAdmin(a) {
-    await axios
-      .post("/api/isAdmin", {
-        email: a,
-      })
-      .then((res) => {
-        if (res.data.success) {
-        } else {
-          router.push("/");
-        }
-      });
-  }
-
+  const [checking, setChecking] = useState(true);
   const router = useRouter();
+
   useEffect(() => {
-    if (checkUser()) {
-    } else {
-      router.push("/login");
+    async function checkAdmin() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        router.push("/login");
+        return;
+      }
+
+      const role = user.user_metadata?.role;
+      const isAdmin =
+        role === "admin" || bootstrapAdmins.includes(user.email);
+
+      if (!isAdmin) {
+        router.push("/");
+        return;
+      }
+
+      setChecking(false);
     }
+
+    checkAdmin();
   }, []);
+
+  if (checking) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <Spinner size="lg" color="primary" />
+      </div>
+    );
+  }
 
   return props.children;
 }

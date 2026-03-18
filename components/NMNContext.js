@@ -59,10 +59,54 @@ export const NMNContextProvider = ({ children }) => {
       const { data } = await supabase.auth.getUser();
 
       if (data && data.user != undefined) {
-        setUserDetails(data.user);
+        // If user has no role set (new Google signup), default to free_user
+        if (!data.user.user_metadata?.role) {
+          await supabase.auth.updateUser({
+            data: { role: "free_user" },
+          });
+          // Refetch to get updated metadata
+          const { data: updated } = await supabase.auth.getUser();
+          setUserDetails(updated?.user ?? data.user);
+        } else {
+          setUserDetails(data.user);
+        }
       } else {
         setUserDetails(null);
       }
+    };
+  }, []);
+
+  // Global auth state listener — handles login, logout, token refresh across devices
+  useEffect(() => {
+    // Fetch user on mount
+    fetchUserDetails();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
+        if (session?.user) {
+          // Always fetch fresh user data from DB (session JWT may not have custom role)
+          const { data: freshData } = await supabase.auth.getUser();
+          const freshUser = freshData?.user;
+          if (freshUser && !freshUser.user_metadata?.role) {
+            // Only set free_user for genuinely new users with no role in DB
+            await supabase.auth.updateUser({
+              data: { role: "free_user" },
+            });
+            const { data: updated } = await supabase.auth.getUser();
+            setUserDetails(updated?.user ?? freshUser);
+          } else {
+            setUserDetails(freshUser ?? session.user);
+          }
+        }
+      } else if (event === "SIGNED_OUT") {
+        setUserDetails(null);
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
     };
   }, []);
 

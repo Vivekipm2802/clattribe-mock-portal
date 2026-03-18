@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {

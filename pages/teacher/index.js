@@ -29,39 +29,25 @@ const [isPIN,setIsPin] = useState();
 const [configuration,setConfiguration] = useState();
     async function getUserData(){
         const {data} = await supabase.auth.getUser();
-        
+
         if(data && data.user != undefined){
           setUserData(data.user)
-          const role = await getRole(data?.user?.email);
-          if(role == "teacher"){
+          const role = data.user.user_metadata?.role;
+          if(role === "teacher" || role === "admin"){
            return null
           }
-          if(role == "user"){
-           router.push('/')
-          }
+          // Not a teacher — redirect to student dashboard
+          router.push('/')
         }
-       
-
         else{
           setUserData('no data');
-          router.push('/teacher-login')
+          router.push('/login')
         }
       }
 useEffect(()=>{
     getUserData();
-   
+
 },[])
-async function getRole(a){
-  console.log(a)
-  const {data,error} = await supabase.rpc('get_user_role_by_email',{email_address:a})
-  if(data){
-      console.log(data);
-      return data
-  }
-  else{
-      console.log(error)
-  }
-}
 
 
 
