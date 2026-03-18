@@ -2708,6 +2708,18 @@ function MockTestEditor({ userData, role }) {
     <ImageUploader size="small" onUploadComplete={(e)=>{setAddNewQuestion(res=>({...res,answerimage:e}))}}></ImageUploader> */}
                     <Divider className="my-5"></Divider>
                     <h2>Explanation</h2>
+                    <QuillWarapper
+                      value={
+                        editQuestionData?.explanation ||
+                        "<strong>Write your Explanation Here...</strong>"
+                      }
+                      onChange={(e) => {
+                        setEditQuestionData((res) => ({
+                          ...res,
+                          explanation: e,
+                        }));
+                      }}
+                    ></QuillWarapper>
 
                     <h2>Explanation Image</h2>
                     <ImageUploader

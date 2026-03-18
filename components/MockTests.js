@@ -127,7 +127,7 @@ export default function MockTests({ enrolled = [] }) {
     const { data, error } = await supabase
       .from("mock_test_view")
       .select(
-        "id, title, description, category, course, seq, start_time, end_time, config"
+        "id, title, description, category, course, seq, start_time, end_time,uid, config"
       )
       .order("seq", { ascending: true });
 
